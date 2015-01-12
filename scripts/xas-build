@@ -1,1 +1,23 @@
-echo $@
+#!/bin/bash
+
+usage(){
+	echo "xas-build --help"
+	echo "xas-build [-o|--output file] [parameters]*"
+	echo "parameters:"
+	echo -e "    --help              Shows this message"
+	echo -e "    -o, --output file   Output log report to file (default: xas-build.log)"
+	echo -e "    -<xcodebuild param> An xcodebuild parameter"
+}
+
+if [ "$1" == "--help" ]; then 
+	usage
+	exit 1
+fi
+
+# validate that there is a second parameter at least
+if [ "$1" == "--output" ] || [ "$1" == "-o" ] ; then 
+	OUTPUT_LOG=$2
+fi
+
+# run xcodebuild with default parameters
+xcodebuild clean build ${*:3} | ../bin/xcpretty --output $OUTPUT_LOG
