@@ -3,8 +3,14 @@ COMMANDS="clear format build oclint test cover"
 
 usage(){
 	echo "Usage: xas command [parameters]*"
-	echo "command: "$COMMANDS
-	echo "To check the parameters for each command use: xas <command> --help"
+	echo -e "\nTo check the parameters for each command use: xas <command> --help"
+	echo "command: "
+	echo -e "    clear \t Clears the intermediate files and standard locations for the reports"
+	echo -e "    format \t Formats the code using the given rules"
+	echo -e "    build \t Builds the project"
+	echo -e "    oclint \t Creates a report about bad practices and potential errors"
+	echo -e "    test \t Tests the project and generates a report"
+	echo -e "    cover \t Creates a report about the code coverage of the unit test"
 }
 
 if [ "$#" -lt 1 ] || [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
