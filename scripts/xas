@@ -1,0 +1,16 @@
+#!/bin/bash
+COMMANDS="clear format build oclint test cover"
+
+usage(){
+	echo "Usage: xas command [parameters]*"
+	echo "command: "$COMMANDS
+	echo "To check the parameters for each command use: xas <command> --help"
+}
+
+if [ "$#" -lt 1 ] || [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
+    usage;
+    exit 1;
+fi
+
+
+[[ $COMMANDS =~ $1 ]] && ./xas-$1 ${*:2} || usage;
