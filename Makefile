@@ -1,15 +1,9 @@
-# tools paths 
+# global paths 
 BASE = $(shell pwd)/jenkins
 TOOLS = $(BASE)/tools/
-XCTOOL := $(TOOLS)/xctool/xctool.sh
-CLANG_FORMAT := $(TOOLS)/clangformat/bin/clang-format
-OCLINT := $(TOOLS)/oclint/bin/oclint-json-compilation-database
-LCOV := $(TOOLS)/coverage/lcov-1.10/bin/lcov
-LCOV_COBERTURA := $(TOOLS)/cobertura/lcov_cobertura/lcov_cobertura.py
-MOD_PBXPROJ := $(TOOLS)/mod_pbxproj/mod_pbxproj.py
-
-# report paths
 REPORTS := $(BASE)/reports
+
+# report names
 UNIT_TEST_REPORT := $(REPORTS)/test.xml
 COMPILATION_REPORT := compile_commands.json
 OCLINT_REPORT = $(REPORTS)/oclint.xml
@@ -25,6 +19,14 @@ OCLINT_ON := 1
 OCLINT_PARAMETERS := -max-priority-2=100 -max-priority-3=100 -rc=LONG_LINE=120
 COVERAGE_ON := 1
 COVERAGE_EXCLUDES := "Developer/SDKs/*" "main*"
+
+# important macros DO NOT MODIFY
+XCTOOL := $(TOOLS)/xctool/xctool.sh
+CLANG_FORMAT := $(TOOLS)/clangformat/bin/clang-format
+OCLINT := $(TOOLS)/oclint/bin/oclint-json-compilation-database
+LCOV := $(TOOLS)/coverage/lcov-1.10/bin/lcov
+LCOV_COBERTURA := $(TOOLS)/cobertura/lcov_cobertura/lcov_cobertura.py
+MOD_PBXPROJ := $(TOOLS)/mod_pbxproj/mod_pbxproj.py
 BUILT_PRODUCTS_DIR := `cat $(COVERAGE_ENV) | egrep '( BUILT_PRODUCTS_DIR)' | sed -e 's/^[ \t]*//g' -e 's/BUILT_PRODUCTS_DIR = //g' | head -n1`
 SRCROOT := `cat $(COVERAGE_ENV) | egrep '( SRCROOT)' | sed -e 's/^[ \t]*//g' -e 's/SRCROOT = //g' | head -n1`
 OBJECT_FILE_DIR_normal := `cat $(COVERAGE_ENV) | egrep '( OBJECT_FILE_DIR_normal)' | sed -e 's/^[ \t]*//g' -e 's/OBJECT_FILE_DIR_normal = //g' | head -n1`
@@ -88,7 +90,7 @@ report-coverage:
 	$(LCOV_COBERTURA) $(COVERAGE_INFO) -b "$(SRCROOT)" -o $(COBERTURA_REPORT)
 
 install: check-dependencies
-	
+
 check-dependencies:
 	echo "Checking dependencies"
 
