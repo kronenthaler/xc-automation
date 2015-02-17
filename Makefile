@@ -87,6 +87,8 @@ report-coverage:
 	# export the cobertura compatible file.
 	$(LCOV_COBERTURA) $(COVERAGE_INFO) -b "$(SRCROOT)" -o $(COBERTURA_REPORT)
 
+install: check-dependencies
+	
 check-dependencies:
 	echo "Checking dependencies"
 
