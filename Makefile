@@ -15,6 +15,7 @@ COVERAGE_ENV = $(REPORTS)/covenv
 PROJECT := `find .. -maxdepth 1 -name '*xcodeproj' | sort | head -n1`
 SCHEME := $(shell xcodebuild -list -project $(PROJECT)| grep "Schemes" -A1 | tail -n1 | sed '/^$$/d;s/[[:blank:]]//g')
 BUILD_PARAMETERS := -scheme $(SCHEME) -project $(PROJECT) -configuration Debug -sdk iphonesimulator
+DEPLOY_PARAMETERS := -scheme $(SCHEME)-Distribute -project $(PROJECT) -configuration Release -sdk iphonesimulator
 OCLINT_ON := 1
 OCLINT_PARAMETERS := -max-priority-2=100 -max-priority-3=100 -rc=LONG_LINE=120
 COVERAGE_ON := 1
@@ -62,8 +63,7 @@ test: clean build
 	$(XCTOOL) test -freshSimulator $(BUILD_PARAMETERS) -reporter junit:$(UNIT_TEST_REPORT) -reporter plain
 
 deploy:
-	# how to deploy the framework (upload to a repo, public git? maven?, ftp?)
-	# 
+	$(XCTOOL) clean build $(DEPLOY_PARAMETERS) -reporter plain
 
 report: 
 	# oclint
